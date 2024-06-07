@@ -11,8 +11,15 @@
 #   --configs dmc_vision --task dmc_walker_walk \
 #   --logdir "./logdir/dmc_walker_walk"
 #
+# 不删除容器的运行
+# docker build -f  Dockerfile -t img . && \
+# docker run -it --gpus all -v $PWD:/workspace -u $(id -u):$(id -g) img \
+#   sh xvfb_run.sh python3 dreamer.py \
+#   --configs dmc_vision --task dmc_walker_walk \
+#   --logdir "./logdir/dmc_walker_walk"
+
 # 3. See results:
-# tensorboard --logdir ~/logdir
+# tensorboard --logdir ./logdir
 
 # System
 FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
@@ -45,7 +52,7 @@ RUN pip3 install crafter==1.8.0
 RUN pip3 install atari-py==0.2.9
 RUN pip3 install opencv-python==4.7.0.72
 RUN mkdir roms && cd roms
-RUN wget -L -nv http://www.atarimania.com/roms/Roms.rar
+RUN wget -L http://www.atarimania.com/roms/Roms.rar
 RUN unrar x -o+ Roms.rar
 RUN python3 -m atari_py.import_roms ROMS
 RUN cd .. && rm -rf roms
@@ -54,5 +61,5 @@ RUN cd .. && rm -rf roms
 RUN pip3 install memory_maze==1.0.3
 
 # minecraft setup
-RUN pip3 install minerl==0.4.4
+# RUN pip3 install minerl==0.4.4
 RUN pip3 install numpy==1.21.0
