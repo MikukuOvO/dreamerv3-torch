@@ -103,7 +103,7 @@ dmc_proprio:
   decoder: {mlp_keys: '.*', cnn_keys: '$^'}
 
 dmc_vision:
-  steps: 4e5
+  steps: 2e5
   action_repeat: 2
   envs: 4
   train_ratio: 512
